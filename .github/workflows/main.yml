@@ -60,7 +60,7 @@ jobs:
           fi
 
           # update the version in package.json as it's the easiest thing to do using npm
-          # git checkout master
+          git checkout master
           cd frontend_stuff
           new_version=$(npm version $version_bump)  # this returs the new version number with 'v' as prefix
           cd ..
