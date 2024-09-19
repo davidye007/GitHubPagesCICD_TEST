@@ -56,7 +56,7 @@ update_version() {
 
   git add frontend_stuff/package.json
   git add frontend_stuff/package-lock.json
-  git add trails-viz-api/trailsvizapi/__init__.py
+  # git add trails-viz-api/trailsvizapi/__init__.py
   git commit -m "Auto update version to $new_version"
   echo "commited after version update"
   git push origin master
