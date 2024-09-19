@@ -71,7 +71,8 @@ jobs:
           cd ..
 
           echo "local version bump successful $new_version"
-
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add frontend_stuff/package.json
           echo "git add frontend_stuff/package.json successful"
           git add frontend_stuff/package-lock.json
