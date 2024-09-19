@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update version
-        run: bash build.sh update_version
+        run: bash build.sh deploy
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
