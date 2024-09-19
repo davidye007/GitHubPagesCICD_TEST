@@ -23,7 +23,7 @@ jobs:
     
     - name: Build project
       run: |
-        cd trails-viz-app
+        cd frontend_stuff
         npm run build
     
     - name: Deploy to GitHub Pages
