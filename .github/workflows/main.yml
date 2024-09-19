@@ -41,6 +41,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: frontend-build
+      
+      - name: Set up Git user identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Update version
         env:
