@@ -34,10 +34,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # Ensures the correct branch and workspace
       
-      # - name: Set up Git user identity
-      #   run: |
-      #     git config --global user.name "github-actions[bot]"
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Set up Git user identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Update version
         env:
