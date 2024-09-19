@@ -1,4 +1,4 @@
-name: Build and Deploy to GitHub Pages
+name: Build and Deploy Dashboard/API
 on:
   push:
     branches:
@@ -21,13 +21,24 @@ jobs:
         cd frontend_stuff
         npm install
     
-    - name: Build project
+    - name: Run lint and build
       run: |
         cd frontend_stuff
+        npm run lint
         npm run build
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./frontend_stuff/dist
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update version
+        run: bash build.sh update_version
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend_stuff/dist
