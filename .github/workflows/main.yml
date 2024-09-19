@@ -34,10 +34,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # Ensures the correct branch and workspace
       
-      - name: Set up Git user identity
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      # - name: Set up Git user identity
+      #   run: |
+      #     git config --global user.name "github-actions[bot]"
+      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Update version
         env:
@@ -63,13 +63,8 @@ jobs:
           cd ..
 
           echo "local version bump successful $new_version"
-          echo "heeellllp"
-          # git config --global user.name "github-actions[bot]"
-          # git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add frontend_stuff/package.json
-          echo "git add frontend_stuff/package.json successful"
           git add frontend_stuff/package-lock.json
-          echo "git add frontend_stuff/package-lock.json successful"
           git commit -m "Auto update version to $new_version"
           echo "commited after version update"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
