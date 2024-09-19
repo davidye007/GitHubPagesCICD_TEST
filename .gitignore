@@ -1,0 +1,38 @@
+# macOS system files
+.DS_Store
+
+# Node modules
+node_modules
+
+# IntelliJ IDEA
+.idea/
+
+# OS generated files
+*.DS_Store
+*Thumbs.db
+
+# Local environment files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Node specific files
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+pnpm-debug.log
