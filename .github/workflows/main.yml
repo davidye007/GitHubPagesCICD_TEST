@@ -26,21 +26,13 @@ jobs:
         cd frontend_stuff
         npm run lint
         npm run build
-    
-    - name: Upload artifacts for deploy
-      uses: actions/upload-artifact@v3
-      with:
-        name: frontend-build
-        path: ./frontend_stuff
   
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download frontend build
-        uses: actions/download-artifact@v3
-        with:
-          name: frontend-build
+      - name: Checkout code
+        uses: actions/checkout@v3  # Ensures the correct branch and workspace
       
       - name: Set up Git user identity
         run: |
@@ -72,8 +64,8 @@ jobs:
 
           echo "local version bump successful $new_version"
           echo "heeellllp"
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # git config --global user.name "github-actions[bot]"
+          # git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add frontend_stuff/package.json
           echo "git add frontend_stuff/package.json successful"
           git add frontend_stuff/package-lock.json
