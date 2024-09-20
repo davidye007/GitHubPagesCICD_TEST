@@ -50,10 +50,6 @@ jobs:
         with:
           name: frontend-dist
 
-      # Checkout code second to avoid overwriting the dist folder
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Set up Git user identity
         run: |
           git config --global user.name "github-actions[bot]"
@@ -97,4 +93,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend_stuff/dist
+          publish_dir: frontend-dist
