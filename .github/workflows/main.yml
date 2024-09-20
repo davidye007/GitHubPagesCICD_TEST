@@ -55,9 +55,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: frontend-dist
-      
-
-      
+            
+      # List the files in the working directory
+      - name: List files in working directory
+        run: |
+          ls -R /home/runner/work/GitHubPagesCICD_TEST/GitHubPagesCICD_TEST  # List all files and folders recursively
+            
       - name: Test Stuff
         run: |
           ls -R frontend_stuff  # Recursively list all files and directories
