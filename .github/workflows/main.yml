@@ -37,7 +37,7 @@ jobs:
     # Save the dist folder as an artifact
     - name: Upload build artifact
       if: github.event_name == 'push'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: frontend-dist
         path: frontend_stuff/dist  # Save only the dist folder as an artifact
@@ -47,14 +47,15 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'  # Only run if this is a push event
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       # Download the dist folder
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: frontend-dist
+          path: frontend_stuff/dist
             
       # List the files in the working directory
       - name: List files in working directory
