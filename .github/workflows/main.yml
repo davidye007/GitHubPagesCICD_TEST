@@ -52,6 +52,10 @@ jobs:
       
       - name: Checkout code
         uses: actions/checkout@v3
+      
+      - name: Test Stuff
+        run: |
+          ls -R   # Recursively list all files and directories
 
       - name: Set up Git user identity
         run: |
