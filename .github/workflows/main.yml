@@ -47,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'  # Only run if this is a push event
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       # Download the dist folder
       - name: Download build artifact
@@ -54,8 +56,7 @@ jobs:
         with:
           name: frontend-dist
       
-      - name: Checkout code
-        uses: actions/checkout@v3
+
       
       - name: Test Stuff
         run: |
