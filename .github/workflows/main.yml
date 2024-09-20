@@ -29,14 +29,30 @@ jobs:
         cd frontend_stuff
         npm run lint
         npm run build
+    
+    # Save the dist folder as an artifact
+    - name: Upload build artifact
+      if: github.event_name == 'push'
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-dist
+        path: frontend_stuff/dist  # Save only the dist folder as an artifact
+  
   deploy:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push'  # Only run if this is a push event
     steps:
 
+      # Download the dist folder
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-dist
+
+      # Checkout code second to avoid overwriting the dist folder
       - name: Checkout code
-        uses: actions/checkout@v3  # Ensures the correct branch and workspace
+        uses: actions/checkout@v3
 
       - name: Set up Git user identity
         run: |
