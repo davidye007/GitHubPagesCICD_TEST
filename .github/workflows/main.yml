@@ -29,15 +29,15 @@ jobs:
         cd frontend_stuff
         npm run lint
         npm run build
-  
   deploy:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push'  # Only run if this is a push event
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v3  # Ensures the correct branch and workspace
-      
+
       - name: Set up Git user identity
         run: |
           git config --global user.name "github-actions[bot]"
