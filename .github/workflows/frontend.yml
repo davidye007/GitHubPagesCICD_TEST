@@ -3,6 +3,13 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'frontend_stuff/**'
+  pull_request:
+      branches:
+        - master
+      paths:
+        - 'frontend_stuff/**'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,21 +34,42 @@ jobs:
         npm run lint
         npm run build
     
-    - name: Upload artifacts for deploy
-      uses: actions/upload-artifact@v3
+    - name: Test Stuff
+      run: |
+        ls -R frontend_stuff  # Recursively list all files and directories
+    
+    # Save the dist folder as an artifact
+    - name: Upload build artifact
+      if: github.event_name == 'push'
+      uses: actions/upload-artifact@v4
       with:
-        name: frontend-build
-        path: ./frontend_stuff
+        name: frontend-dist
+        path: frontend_stuff/dist  # Save only the dist folder as an artifact
   
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'  # Only run if this is a push event
     steps:
-      - name: Download frontend build
-        uses: actions/download-artifact@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Download the dist folder
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
         with:
-          name: frontend-build
-      
+          name: frontend-dist
+          path: frontend_stuff/dist
+            
+      # List the files in the working directory
+      - name: List files in working directory
+        run: |
+          ls -R /home/runner/work/GitHubPagesCICD_TEST/GitHubPagesCICD_TEST  # List all files and folders recursively
+            
+      - name: Test Stuff
+        run: |
+          ls -R frontend_stuff  # Recursively list all files and directories
+
       - name: Set up Git user identity
         run: |
           git config --global user.name "github-actions[bot]"
@@ -71,13 +99,8 @@ jobs:
           cd ..
 
           echo "local version bump successful $new_version"
-          echo "heeellllp"
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add frontend_stuff/package.json
-          echo "git add frontend_stuff/package.json successful"
           git add frontend_stuff/package-lock.json
-          echo "git add frontend_stuff/package-lock.json successful"
           git commit -m "Auto update version to $new_version"
           echo "commited after version update"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
@@ -90,4 +113,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend_stuff/dist
+          publish_dir: frontend_stuff/dist
