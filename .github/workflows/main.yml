@@ -30,6 +30,10 @@ jobs:
         npm run lint
         npm run build
     
+    - name: Test Stuff
+      run: |
+        ls -R frontend_stuff  # Recursively list all files and directories
+    
     # Save the dist folder as an artifact
     - name: Upload build artifact
       if: github.event_name == 'push'
